@@ -51,7 +51,7 @@ client.login('TOKEN')
 
 # Values/Syntax
 
-**if you are unsure of what values to change, or do not understand, copy from the example above!
+**if you are unsure of what values to change, or do not understand, copy from the example above!**
 
 ```
 setRole(message, role)
