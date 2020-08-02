@@ -44,8 +44,21 @@ client.on('message', async message => {
 
         ticket.closeTicket(message, channel)
     }
-})
 
+    if (message.content.startsWith('!send')) {
+        const channel = message.mentions.channels.first()
+        const args = message.content.slice(5)
+
+        ticket.msgTicketChannel(message, channel, args)
+    }
+
+    if (message.content.startsWith('!category')) {
+        const ID = message.content.slice(9)
+        ticket.Category(message, ID)
+
+        message.channel.send(`Ticket Category has been set!`)
+    }
+})
 client.login('TOKEN')
 ```
 
@@ -84,7 +97,30 @@ closeTicket(message, channel)
 This closes a support ticket, even if the ticket's name was changed
 
 Replace "message" with your message value
-Replace "channel" with the channel value, best not to change from example, unless you are know discord.js
+Replace "channel" with the channel value, best not to change from example, unless you know discord.js
+```
+
+
+```
+msgTicketChannel(channel, args)
+```
+```css
+Note: this is very buggy at the moment, fixes coming soon!
+
+Send a message to a ticket channel
+Replace "channel" with your channel value
+Replace "args" with your args value!
+```
+
+
+```
+Category(message, ID)
+```
+```css
+Set the ticket category
+
+Replace "message" with your message value
+Replace "ID" with the category id
 ```
 
 More values soon!
