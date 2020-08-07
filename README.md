@@ -26,37 +26,49 @@ client.on('ready', () => {
 })
 
 client.on('message', async message => {
+
     if (message.content.startsWith('!t-role')) {
         const role = message.mentions.roles.first()
 
         ticket.setRole(message, role) //Set the support role, that gets pinged when a new ticket is created!
     }
-
     if (message.content.startsWith('!ticket')) {
         const reason = message.content.slice(7)
 
         ticket.makeTicket(message, reason)//Creates a new ticket, the reason is optional!
     }
-
     if (message.content.startsWith('!close')) {
         const args = message.content.slice(6)
         const channel = message.mentions.channels.first() || message.guild.channels.cache.find(c => c.id == args || c.name == args) || message.channel
 
         ticket.closeTicket(message, channel)
     }
-
     if (message.content.startsWith('!send')) {
         const channel = message.mentions.channels.first()
         const args = message.content.slice(5)
 
-        ticket.msgTicketChannel(message, channel, args)
+        ticket.msgTicketChannel(message, channel, args)//fixes coming soon, for this command
     }
-
     if (message.content.startsWith('!category')) {
-        const ID = message.content.slice(9)
+        const ID = message.content.slice(9)//must be the category id
         ticket.Category(message, ID)
 
         message.channel.send(`Ticket Category has been set!`)
+    }
+    if (message.content.startsWith('!embed-message')) {
+        const args = message.content.slice(14)
+
+        ticket.editEmbed(message, args)
+    }
+    if(message.content.startsWith(`!add-user`)) {
+        const channel = message.mentions.channels.first()
+        const user = message.mentions.users.first()
+
+        ticket.ticketAddUser(channel, user)
+    }
+    if (message.content === `!id`) {
+        const ID = await ticket.fetchChanID(message)
+        message.channel.send(`This channels id is ${ID}`)
     }
 })
 client.login('TOKEN')
@@ -121,6 +133,35 @@ Set the ticket category
 
 Replace "message" with your message value
 Replace "ID" with the category id
+```
+
+```
+editEmbed(message, args)
+```
+```css
+Changes the first message, of the embed that is sent
+
+Replace "message" with the message value
+Replace "args" with the arguments or message you want to set
+```
+
+```
+ticketAddUser(channel, user)
+```
+```css
+Adds someone to a ticket channel
+
+Replace "channel" with the channel value
+Replace "user" with the user value, or person to add
+```
+
+```
+fetchChanID(message)
+```
+```css
+Fetches the current channels actual id, if the channel is a ticket channel
+
+Replace "message" with your message value, for the channel
 ```
 
 More values soon!
