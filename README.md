@@ -35,7 +35,7 @@ client.on('message', async message => {
     if (message.content.startsWith('!ticket')) {
         const reason = message.content.slice(7)
 
-        ticket.makeTicket(message, reason)//Creates a new ticket, the reason is optional!
+        ticket.makeTicket(message, reason, "swrf")//Creates a new ticket, the reason is optional!
     }
     if (message.content.startsWith('!close')) {
         const args = message.content.slice(6)
@@ -91,13 +91,14 @@ Replace "role" with the role mention, or value
 
 
 ```
-makeTicket(message, reason)
+makeTicket(message, reason, options)
 ```
 ```css
 This creates a new support ticket in a guild
 
 Replace "message" with your message value
 Replace "reason" with your reason args value, reasons are optional!
+Replace "options" with any string, to send the made ticket message in dms!
 ```
 
 
